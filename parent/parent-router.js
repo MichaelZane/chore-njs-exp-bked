@@ -29,10 +29,10 @@ router.get('/:id', authenticate, (req, res) => {
       Parent.getChildById(id) // if child is found then get chore by id
         .then(child => {
           let addChild = []
-          if(child.length) {
+          if(child.length === 1) {
             addChild = child // if chore exists add it to array
           }
-          res.json({ ...parent[0], child: addChild }) // return array of parents children
+          res.status(200).json({ ...parent[0], child: addChild }) // return array of parents children
         })
         .catch(err => {
           console.log(err)

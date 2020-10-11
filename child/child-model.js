@@ -40,7 +40,7 @@ function findById(id) {
     .where({ id })
     .first();
 }
-// get childs chores
+// get child chores
 function getChoreById(id) {
   return db('chore as c')
     .where('c.child_id', id)
