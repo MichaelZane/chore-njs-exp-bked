@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
   }
 })
 
-//reigster the child
+//register the child
 router.post('/register/child', async (req, res) => {
  
   let { fstname, lstname, username, password, parent_id } = req.body

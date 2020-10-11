@@ -9,7 +9,8 @@ module.exports = {
   remove, 
   update,
   getParent,
-  getChildById
+  getChildById,
+  getChild
 };
 
 // get parent by id 
@@ -62,6 +63,7 @@ function remove(id) {
 
 function getChildById(id) {
   return db('child as c')
+    .select('*')
     .where('c.parent_id', id)
 }
 
@@ -71,5 +73,13 @@ function getParent(id) {
     .select('p.name as parent_name', 'c.id as child_id', 'c.fstname', 
     'c.lstname', 'c.username' )
     .where('c.parent_id', id)
+    .orderBy('c.id')
+}
+
+function getChild(id) {
+  return db('child as c')
+    .join('parent as p', 'p.id', 'c.parent_id')
+    .select('p.fname', 'c.fstname', 'c.id', 'c.username')
+    .where('p.id', id)
     .orderBy('c.id')
 }
