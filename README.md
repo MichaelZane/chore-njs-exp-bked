@@ -2,7 +2,7 @@
 
 ## All Endpoints should include this :
 
--- https://chore-tracker1.herokuapp.com
+-- https://chore-backend.herokuapp.com
 
 
 
