@@ -55,6 +55,7 @@ function getChild(id) {
     .where('chr.child_id', id)
     .orderBy('chr.id');
 }
+
 // edit a child
 function update(changes, id) {
   return db('child')

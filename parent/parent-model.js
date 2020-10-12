@@ -64,7 +64,7 @@ function remove(id) {
 function getChildById(id) {
   return db('child as c')
     .select('*')
-    .where('c.id', id)
+    .where('c.parent_id', id)
 }
 
 function getParent(id) {

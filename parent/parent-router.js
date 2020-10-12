@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 const Parent = require('./parent-model');
 
+const Child = require('../child/child-model')
+
 const authenticate = require('../auth/authenticateMW');
 
 router.get('/justparent/:id', authenticate, (req, res) => {
@@ -32,7 +34,7 @@ router.get('/:id', authenticate, (req, res) => {
           if(child.length) {
             addChild = child // if chore exists add it to array
           }
-          res.status(200).json({ ...parent[0], child: addChild }) // return array of parents children
+          res.status(200).json({ ...parent, child: addChild }) // return array of parents children
         })
         .catch(err => {
           console.log(err)
