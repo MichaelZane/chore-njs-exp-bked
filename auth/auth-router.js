@@ -67,7 +67,6 @@ router.post('/login', (req, res) => {
         const username = user.username;
 
         res.status(200).json({
-          id: `${user.id}`,
           message: `Welcome ${username} you are logged in !`,
           token, user_id, username
         });
