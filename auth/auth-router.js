@@ -5,7 +5,7 @@ const Parent = require('../parent/parent-model');
 const Child = require('../child/child-model')
 const jwt = require('jsonwebtoken')
 
-
+//.
 //for endpoints beginning with /api/auth
 // register  Parent
 router.post('/register', async (req, res) => {
