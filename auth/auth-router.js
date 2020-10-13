@@ -92,8 +92,8 @@ router.post('/login/child', (req, res) => {
         const token = makeToken(user)
 
         res.status(200).json({
-          message: `${user.id}`,
-          token, 
+          message: `Hello, ${username} you have just logged in`,
+          token, parent_id, user_id 
         });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
