@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
 
         res.status(200).json({
           message: `Welcome ${username} you are logged in !`,
-          token, username, user_id
+          token, user_id, username
         });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
@@ -93,7 +93,7 @@ router.post('/login/child', (req, res) => {
 
         res.status(200).json({
           message: `Hello, ${username} you have just logged in`,
-          token, parent_id, 
+          token, parent_id, user_id, 
         });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });

@@ -34,7 +34,7 @@ router.get('/:id', authenticate, (req, res) => {
           if(child.length) {
             addChild = child // if chore exists add it to array
           }
-          res.status(200).json({ ...parent, child: addChild }) // return array of parents children
+          res.status(200).json({ child: addChild }) // return array of parents children
         })
         .catch(err => {
           console.log(err)
