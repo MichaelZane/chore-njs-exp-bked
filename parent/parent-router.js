@@ -32,7 +32,7 @@ router.get('/:id', authenticate, (req, res) => {
         .then(child => {
           let addChild = []
           if(child.length > 0) {
-            child = addChild// if child exists add it to array
+            addChild = child// if child exists add it to array
           } else return "No children yet"
           res.status(200).json({ child }) // return array of parents children
         })
