@@ -32,7 +32,7 @@ router.get('/:id', authenticate, (req, res) => {
           if(chore.length) {
             addChore = chore // if chore exists add it to array
           }
-          res.json({ ...child[0], chore: addChore })
+          res.json({ ...child, chore: addChore })
         })
         .catch(err => {
           res.status(500).json({ message: 'Failed getting chore' });
@@ -63,6 +63,7 @@ router.put('/:id', authenticate, (req, res) => {
     }
   })
   .catch (err => {
+    console.log(err.res)
     res.status(500).json({ message: 'Failed to update child' });
   });
 });
