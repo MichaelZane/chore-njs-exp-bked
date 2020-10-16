@@ -32,7 +32,7 @@ router.get('/:id', authenticate, (req, res) => {
           if(chore.length) {
             addChore = chore // if chore exists add it to array
           }
-          res.json({ ...child, chore: addChore })
+          res.json({ chore: addChore })
         })
         .catch(err => {
           res.status(500).json({ message: 'Failed getting chore' });
