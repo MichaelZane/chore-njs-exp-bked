@@ -24,7 +24,7 @@ exports.up = function(knex) {
 
 
 
-      /////child table
+      //child table
       .createTable("child", tbl => {
         tbl.increments();
 
@@ -50,7 +50,7 @@ exports.up = function(knex) {
       })
 
 
-      ////chore table
+      //chore table
 
       .createTable("chore", tbl => {
         tbl.increments();
