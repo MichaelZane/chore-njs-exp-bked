@@ -1,6 +1,6 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('chore').truncate()
+  return knex('chore').del()
     .then(function () {
       // Inserts seed entries
       return knex('chore').insert([
