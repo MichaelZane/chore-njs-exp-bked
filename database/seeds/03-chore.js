@@ -15,7 +15,7 @@ exports.seed = function(knex) {
           clean_strk: null,
           photo_obj: null,
           child_id: 1,
-          parent_id: 1
+
         
         },
         {id: 2, 
@@ -29,7 +29,7 @@ exports.seed = function(knex) {
           clean_strk: null,
           photo_obj: null,
           child_id: 2,
-          parent_id: 2
+
          
         },
         {id: 3, 
@@ -43,7 +43,7 @@ exports.seed = function(knex) {
           clean_strk: null,
           photo_obj: null,
           child_id: 3,
-          parent_id: 3
+
          
         },
         {id: 4, 
@@ -57,7 +57,7 @@ exports.seed = function(knex) {
           clean_strk: null,
           photo_obj: null,
           child_id: 4,
-          parent_id: 4
+
          
         }
       ]);
