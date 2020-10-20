@@ -70,11 +70,11 @@ router.put('/:id', authenticate, (req, res) => {
 
 router.delete('/:id', authenticate, (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
 
   Child.remove(id)
   .then(deleted => {
-      console.log(deleted)
+
       if (deleted) {
           res.status(200).json(deleted);
     } else {
