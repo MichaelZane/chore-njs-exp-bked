@@ -44,7 +44,7 @@ exports.up = function(knex) {
         .unsigned()
         .references("id")
         .inTable("parent")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
 
       })
@@ -82,16 +82,16 @@ exports.up = function(knex) {
         .unsigned()
         .references("id")
         .inTable("child")
-        // .onDelete("RESTRICT")
-        // .onUpdate("CASCADE");
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
 
         tbl
         .integer("parent_id")
         .unsigned()
         .references("id")
         .inTable("parent")
-        // .onDelete("RESTRICT")
-        // .onUpdate("CASCADE");
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
 
       })
   );
