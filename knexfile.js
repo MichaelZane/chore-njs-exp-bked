@@ -1,11 +1,16 @@
+require("dotenv").config()
+
 
 module.exports = {
   development: {
-    client: "sqlite3",
-    useNullAsDefault: true,
+    client: "pg",
     connection: {
-      filename: "./database/choretracker.db3"
+      host: process.env.HOST,
+      database: process.env.DATABASE,
+      user: process.env.USER,
+      password: process.env.PASSWORD
     },
+    // connection: 'postgres: //localhost',
     migrations: {
       directory: "./database/migrations"
     },
@@ -13,11 +18,9 @@ module.exports = {
       directory: "./database/seeds"
     },
     pool: {
-      afterCreate: (conn, done) => {
-        // runs after a connection is made to the sqlite engine
-        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
-      }
-    }
+      min: 1,
+      max: 100
+    },
   },
   production: {
     client: "pg",
