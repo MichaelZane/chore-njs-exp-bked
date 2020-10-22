@@ -17,29 +17,10 @@ async function get() {
 
 //adding a chore 
 async function insert(chores) {
-  return db('chore')
-    .insert(chores)
-    .then(ids => {
-      return findById(ids[0])
-    })
-    
+  return await db('chore')
+    .returning(['id', 'child_id', 'name', 'description', 'comments', 'completed', 'due_date', 'chore_score', 'bonus_pts', 'clean_strk', 'photo_obj'])
+    .insert(chores);
   }
-
-
-
-
-// function addChore(choreData, id) {
-//   const newChore = {...choreData, chore_id: id }
-//     return db('chore')
-//     .insert(newChore)
-//     .then(() => {
-//       return getChore(id)
-//     })
-// }
-
-
-// grab all resources in table
-
 
 function findById(id) {
     return db('chore')

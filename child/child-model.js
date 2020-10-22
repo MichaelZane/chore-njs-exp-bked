@@ -29,9 +29,9 @@ function findBy(filter) {
 
 // adding a child
 async function insert(user) {
-  
-  const [id] = await db('child').insert(user);
-  return findById(id);
+  return await db('child')
+  .returning(['id', 'fstname', 'lstname', 'username', 'password', 'parent_id'])
+  .insert(user);
 }
 
 //find child by id

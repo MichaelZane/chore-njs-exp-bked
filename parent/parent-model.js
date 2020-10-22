@@ -33,9 +33,9 @@ function findBy(filter) {
 //add a parent
 
 async function insert(user) {
-
-  const [id] = await db('parent').insert(user); 
-  return findById(id);
+  return await db('parent')
+    .returning(['id', 'fname', 'lname', 'username', 'password', 'email'])
+    .insert(user);
 }
 
 // find parent by id
