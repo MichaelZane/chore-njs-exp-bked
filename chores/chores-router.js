@@ -4,10 +4,13 @@ const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
 
-// get all chores in database
+// get a chore by id in database
 
-router.get('/', authenticate, (req, res) => {
-  Chores.get()
+router.get('/:id', authenticate, (req, res) => {
+  
+  const { id } = req.params;
+
+  Chores.get(id)
     .then(chore => {
       res.json(chore);
     })
