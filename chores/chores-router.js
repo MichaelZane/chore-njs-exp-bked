@@ -6,7 +6,7 @@ const authenticate = require('../auth/authenticateMW');
 
 // get a chore by id in database
 
-router.get('/:id', authenticate, (req, res) => {
+router.get('singlechore/:id', authenticate, (req, res) => {
   
   const { id } = req.params;
 
@@ -58,7 +58,7 @@ router.put('/:id', authenticate, (req, res) => {
  
 // delete a chore by id
 
-router.delete('/:id', authenticate, (req, res) => {
+router.delete('delete/:id', authenticate, (req, res) => {
   const { id } = req.params;
   console.log(id);
 
