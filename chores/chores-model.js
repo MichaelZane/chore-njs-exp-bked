@@ -11,10 +11,12 @@ remove,
 
 
 }
-async function get() {
-  return await db('chore')
+async function get(id) {
+  return await db('chore as c')
+    .select("c.id", "c.child_id","c.name", "c.description", "c.comments", "c.completed", "c.due_date", "c.chore_score", "c.bonus_pts", "c.clean_strk", "c.photo_obj")
+    .where({ id })
+    .first();
 }
-
 //adding a chore 
 async function insert(chores) {
   return await db('chore')

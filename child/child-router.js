@@ -11,8 +11,8 @@ router.get("/justchild/:id", authenticate, (req, res) => {
   const { id } = req.params;
 
   Child.get(id)
-    .then(childs => {
-      res.json(childs);
+    .then(chores => {
+      res.json(chores);
     })
     .catch(err => res.send(err));
 });
