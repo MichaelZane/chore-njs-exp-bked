@@ -1,12 +1,8 @@
 const express = require('express');
+const fileupload = require('express-fileupload')
 const helmet = require('helmet');
 const cors = require('cors');
-
-
-
-
-// const formData = require('express-form-data')
-
+const bodyParser = require('body-parser')
 
 const childRouter = require('../child/child-router');
 const parentRouter = require('../parent/parent-router');
@@ -16,23 +12,11 @@ const choresRouter = require('../chores/chores-router');
 
 const server = express();
 
-
+server.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}))
 
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-
-// server.use(formData.parse())
-
-// server.use('/image-upload', (req, res) => {
-//   const values = Object.values(req.files)
-//   const promises = values.map(image => cloudinary.uploader.upload(image.path))
-
-//   Promise
-//     .all(promises)
-//     .then(results => res.json(results))
-//     .catch((err) => res.status(400).json(err))
-// })
 
 // routes
 
@@ -47,4 +31,10 @@ server.get('/', (req, res) => {
   res.status(200).json({  api: "If you see me, I am here..."});
 });
 
-module.exports = server;
+module.exports = server => {
+  server.use(
+    fileupload({
+      useTempFiles: true
+    })
+  )
+};
