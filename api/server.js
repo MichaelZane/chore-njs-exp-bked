@@ -2,6 +2,10 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
+require('dotenv').config()
+
+const cloudinary = require('cloudinary')
+const formData = require('express-form-data')
 
 
 const childRouter = require('../child/child-router');
@@ -12,9 +16,27 @@ const choresRouter = require('../chores/chores-router');
 
 const server = express();
 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+})
+
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+
+server.use(formData.parse())
+
+server.use('/image-upload', (req, res) => {
+  const values = Object.values(req.files)
+  const promises = values.map(image => cloudinary.uploader.upload(image.path))
+
+  Promise
+    .all(promises)
+    .then(results => res.json(results))
+    .catch((err) => res.status(400).json(err))
+})
 
 // routes
 
@@ -26,7 +48,7 @@ server.use('/api/chore', choresRouter);
 // server check
 
 server.get('/', (req, res) => {
-  res.status(200).json({ api: "If you see me, I am here..."});
+  res.status(200).json({  api: "If you see me, I am here..."});
 });
 
 module.exports = server;
