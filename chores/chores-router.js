@@ -6,7 +6,7 @@ const authenticate = require('../auth/authenticateMW');
 
 require('dotenv').config()
 
-const cloudinary = require('cloudinary')
+const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -15,41 +15,21 @@ cloudinary.config({
   base_url: process.env.BASE_URL
 })
 
-//upload image 
-
-const imgUploader = file => {
-  return cloudinary.uploader.upload(file.image.tempFilePath, function(
-    err,
-    result
-  ) {
-    return result
-  })
-}
-
 //POST route for Image
 
-router.post('/image', (req, res) => {
-  if(!req.files || !req.files.image) {
-    res.status(404).json({
-      message: "no Images"
+router.post('/image', async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: 'dev_setups',
     })
-  
-  Chores.addImage(image)
-    .then(id => res.status(200).json(ids[0]))
-    .catch(err => res.status(500).json({
-      message: "error uploading image"
-    }))
-  } else {
-    imgUploader(req.files)
-      .then(image => {
-        Chores.addImage(image)
-          .then(id => res.status(200).json(id[0]))
-      })
-      .catch(err => {
-        res.status(500).json({
-          message: " error adding new Chore"
-        })
-      })
+    console.log(uploadResponse)
+    res.json({ message: 'Success' })
+  } catch(err) {
+    console.log(err)
+    res.json(500).json({
+      message: "something went wrong"
+    })
   }
 })
 

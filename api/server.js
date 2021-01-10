@@ -1,5 +1,4 @@
 const express = require('express');
-const fileupload = require('express-fileupload')
 const helmet = require('helmet');
 const cors = require('cors');
 const bodyParser = require('body-parser')
@@ -11,8 +10,9 @@ const choresRouter = require('../chores/chores-router');
 
 
 const server = express();
-
-server.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}))
+server.use(express.static('public'));
+server.use(express.json({ limit: '50mb' }));
+server.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 server.use(helmet());
 server.use(express.json());
