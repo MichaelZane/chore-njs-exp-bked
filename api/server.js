@@ -27,14 +27,17 @@ server.use('/api/chore', choresRouter);
 
 // server check
 
+// server.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*"),
+//     res.header(
+//       "Access-Control-Allow-Headers",
+//       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//     )
+//   next()
+// })
+
 server.get('/', (req, res) => {
   res.status(200).json({  api: "If you see me, I am here..."});
 });
 
-module.exports = server => {
-  server.use(
-    fileupload({
-      useTempFiles: true
-    })
-  )
-};
+module.exports = server 
