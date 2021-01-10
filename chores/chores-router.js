@@ -4,6 +4,54 @@ const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
 
+require('dotenv').config()
+
+const cloudinary = require('cloudinary')
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+  base_url: process.env.BASE_URL
+})
+
+//upload image 
+
+const imgUploader = file => {
+  return cloudinary.uploader.upload(file.image.tempFilePath, function(
+    err,
+    result
+  ) {
+    return result
+  })
+}
+
+//POST route for Image
+
+router.post('/image', (req, res) => {
+  if(!req.files || !req.files.image) {
+    res.status(404).json({
+      message: "no Images"
+    })
+  
+  Chores.addImage(image)
+    .then(id => res.status(200).json(ids[0]))
+    .catch(err => res.status(500).json({
+      message: "error uploading image"
+    }))
+  } else {
+    imgUploader(req.files)
+      .then(image => {
+        Chores.addImage(image)
+          .then(id => res.status(200).json(id[0]))
+      })
+      .catch(err => {
+        res.status(500).json({
+          message: " error adding new Chore"
+        })
+      })
+  }
+})
 
 // get a chore by id in database
 
