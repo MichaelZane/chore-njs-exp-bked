@@ -1,37 +1,49 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
 const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
+const cloudinary = require('cloudinary').v2;
+
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
+
+var multer = require('multer')
 
 require('dotenv').config()
-
-const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
-  base_url: process.env.BASE_URL
+  
 })
+
+//uploading image configuration
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: 'images',
+  allowedFormats: ["jpg", "png"],
+  transformation: [
+    { if: "w_gt_1900", width: 1900, crop: "scale" },
+    { if: "h_gt_1900", height: 1900, crop: "scale" },
+    { quality: "auto" },
+    { format: 'jpg' }
+  ]
+})
+
+const parser = multer({ storage: storage })
 
 //POST route for Image
 
-router.post('/image', async (req, res) => {
-  try {
-    const fileStr = req.body.data;
-    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: 'dev_setups',
-    })
-    console.log(uploadResponse)
-    res.json({ message: 'Success' })
-  } catch(err) {
-    console.log(err)
-    res.json(500).json({
-      message: "something went wrong"
-    })
-  }
+router.post('/upload', parser.single("file"), (req, res) => {
+  // store url 
+  const imageURL = req.file.public_id
+
+  //return URL to frontend
+  res.json(imageURL)
 })
+  
 
 // get a chore by id in database
 
