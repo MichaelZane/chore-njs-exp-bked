@@ -25,7 +25,7 @@ router.post('/upload', async (req,res) => {
     res.status(201).json({
       message: "SUCCESS"
     })
-    return res.json(fileStr)
+    res.json(fileStr)
   } catch (err) {
     console.error(err)
     res.status(500).json({
