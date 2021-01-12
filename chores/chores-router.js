@@ -5,10 +5,6 @@ const Chores = require('./chores-model');
 const authenticate = require('../auth/authenticateMW');
 const cloudinary = require('cloudinary').v2;
 
-const { CloudinaryStorage } = require('multer-storage-cloudinary')
-
-var multer = require('multer')
-
 require('dotenv').config()
 
 cloudinary.config({
@@ -20,30 +16,23 @@ cloudinary.config({
 
 //uploading image configuration
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  folder: 'images',
-  allowedFormats: ["jpg", "png"],
-  transformation: [
-    { if: "w_gt_1900", width: 1900, crop: "scale" },
-    { if: "h_gt_1900", height: 1900, crop: "scale" },
-    { quality: "auto" },
-    { format: 'jpg' }
-  ]
-})
-
-const parser = multer({ storage: storage })
-
 //POST route for Image
+router.post('/upload', async (req,res) => {
+  try {
+    const fileStr = req.body.data
+    const res = await cloudinary.uploader.upload(fileStr)
+    console.log(res.data)
+    res.status(201).json({
+      message: "SUCCESS"
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      err: 'Something went wrong'
+    })
+  }
 
-router.post('/upload', parser.single("file"), (req, res) => {
-  // store url 
-  const imageURL = req.file.public_id
-
-  //return URL to frontend
-  res.json(imageURL)
 })
-  
 
 // get a chore by id in database
 
