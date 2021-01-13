@@ -13,6 +13,8 @@ server.use(express.static('public'));
 server.use(express.json({ limit: '50mb' }));
 server.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+//configure cloudinary
+
 require('dotenv').config()
 
 cloudinary.config({
