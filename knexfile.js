@@ -18,9 +18,10 @@ module.exports = {
       directory: "./database/seeds"
     },
     pool: {
-      min: 1,
-      max: 100
-    },
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done)
+      }
+    }
   },
   production: {
     client: "pg",
