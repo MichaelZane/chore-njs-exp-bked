@@ -3,6 +3,7 @@ const router = require("express").Router();
 const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
+
 const cloudinary = require('cloudinary').v2;
 
 require('dotenv').config()
@@ -21,7 +22,8 @@ router.post('/upload', async (req,res) => {
   try {
     const fileStr = req.body.data
     const res = await cloudinary.uploader.upload(fileStr)
-    console.log(res.data)
+    const response = await Chores.addImage(image)
+    console.log(res.data, response.data)
     res.status(201).json({
       message: "SUCCESS"
     })
