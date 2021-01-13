@@ -5,7 +5,7 @@ exports.up = function(knex) {
             //chore table
             .createTable("images", tbl => {
                 tbl.increments();
-                tbl.string("image", 300);
+                tbl.string("image", 14000);
             })
 
             .createTable("chore", tbl => {

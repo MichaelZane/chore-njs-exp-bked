@@ -7,8 +7,8 @@ insert,
 getChore,
 findById,
 update,
-remove,
-addImage
+remove
+
 
 
 }
@@ -49,12 +49,6 @@ return db('chore as c')
   .orderBy('c.id');
 }
 
-function addImage(image) {
-  return db("images")
-    .insert(image)
-    .returning({image: image.url}, "id")
-
-}
 
 
 

@@ -1,10 +1,17 @@
 const router = require("express").Router();
 
+const express = require('express');
+
 const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
 
 const cloudinary = require('cloudinary').v2;
+
+const server = express();
+server.use(express.static('public'));
+server.use(express.json({ limit: '50mb' }));
+server.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 require('dotenv').config()
 
@@ -18,58 +25,22 @@ cloudinary.config({
 //uploading image configuration
 
 
-// router.post('/images', async (req,res) => {
-//   try {
-//     const fileStr = req.body.data
-//     const res = await cloudinary.uploader.upload(fileStr)
-//     console.log(res.data)
-//     res.status(201).json({
-//       message: "SUCCESS"
-//     })
-//     res.json(fileStr)
-//   } catch (err) {
-//     console.error(err)
-//     res.status(500).json({
-//       err: 'Something went wrong'
-//     })
-//   }
-
-// })
-
-const imgUpload = file => {
-  return cloudinary.uploader.upload(file.image.tempFilePath, function(
-    error,
-    result
-  ) {
-    return result
-  })
-}
-//POST route for Image
-
-router.post('/image', (req, res) => {
-  if(!req.files.image || !req.files) {
-    const image = {
-      url:
-      "http://facetheforce.today/?i=1baby-yoda"
-    }
-    Chores.addImage(image)
-      .then(id => res.status(201).json(id[0]))
-      .catch(err => res.status.json({
-        message: 'error on upload'
-      }))
-  } else {
-    imgUpload(req.files)
-      .then(image => {
-        Chores.imgUpload(image)
-          .then(id => res.status(201).json(id[0]))
-          
-      })
-      .catch(err => {
-        res.status(500).json({
-          message: 'error adding image'
-        })
-      })
+router.post('/image', async (req,res) => {
+  try {
+    const fileStr = req.body.data
+    const res = await cloudinary.uploader.upload(fileStr)
+    console.log(res.data)
+    res.status(201).json({
+      message: "SUCCESS"
+    })
+    res.json(fileStr)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      err: 'Something went wrong'
+    })
   }
+
 })
 
 // get a chore by id in database
