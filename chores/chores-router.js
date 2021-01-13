@@ -16,9 +16,9 @@ server.use(express.urlencoded({ limit: '50mb', extended: true }));
 require('dotenv').config()
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
+  cloud_name: 'mikezs',
+  api_key: '698823118239967',
+  api_secret: 'HmzAmqm5PU1u34rMsmqV7FJ7RaI',
   
 })
 
