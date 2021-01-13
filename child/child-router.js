@@ -4,8 +4,6 @@ const Child = require("./child-model");
 
 const authenticate = require("../auth/authenticateMW");
 
-
-
 router.get("/justchild/:id", authenticate, (req, res) => {
 
   const { id } = req.params;
