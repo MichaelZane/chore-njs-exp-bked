@@ -21,7 +21,7 @@ async function get(id) {
 //adding a chore 
 async function insert(chores) {
   return await db('chore')
-    .returning(['id', 'child_id', 'name', 'description', 'comments', 'completed', 'due_date', 'chore_score', 'bonus_pts', 'clean_strk'])
+    .returning(['id', 'child_id', 'name', 'description', 'comments', 'completed', 'due_date', 'chore_score', 'bonus_pts', 'clean_strk', 'imgId'])
     .insert(chores);
 }
 
@@ -52,7 +52,7 @@ return db('chore as c')
 function addImage(image) {
   return db("images")
     .insert(image)
-    .returning(['id', 'image'])
+    .returning({image: image.url}, "id")
 
 }
 
