@@ -13,10 +13,10 @@ router.post('/image', async (req,res) => {
     const fileStr = req.body.data
     const uploadResponse = await cloudinary.uploader.upload(fileStr)
     console.log(uploadResponse)
-    res.json({
+    res.status(201).json({
       message: "SUCCESS"
     })
-    res.json(fileStr)
+    return res.json(fileStr)
   } catch (err) {
     console.error(err)
     res.status(500).json({
