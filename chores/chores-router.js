@@ -1,37 +1,18 @@
 const router = require("express").Router();
 
-const express = require('express');
+const { cloudinary } = require('../api/cloudinary')
 
 const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
 
-const cloudinary = require('cloudinary').v2;
-
-const server = express();
-server.use(express.static('public'));
-server.use(express.json({ limit: '50mb' }));
-server.use(express.urlencoded({ limit: '50mb', extended: true }));
-
-//configure cloudinary
-
-require('dotenv').config()
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET
-  
-})
-
 //uploading image configuration
-
 
 router.post('/image', async (req,res) => {
   try {
     const fileStr = req.body.data
-    const res = await cloudinary.uploader.upload(fileStr)
-    console.log(res.data)
+    const uploadResponse = await cloudinary.uploader.upload(fileStr)
+    console.log(uploadResponse)
     res.status(201).json({
       message: "SUCCESS"
     })
