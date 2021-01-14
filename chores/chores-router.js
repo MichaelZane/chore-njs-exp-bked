@@ -16,14 +16,17 @@ router.post('/image', async (req,res) => {
       use_filename: true, 
     }, function(error, result){console.log(result, error)})
     console.log(uploadResponse)
+    const saved = await Chores.addImage(fileStr)
     res.status(201).json({
-      message: "SUCCESS"
+      message: "SUCCESS",
+      saved
     })
-  
+      
   } catch (err) {
     console.error(err)
     res.status(500).json({
       err: 'Something went wrong'
+      
     })
   }
 
