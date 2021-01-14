@@ -6,25 +6,43 @@ const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
 
-//uploading image configuration
+//upload image cloudinary
+
+  
+  const uploadingImg = file => {
+      cloudinary.uploader.upload(file.image.tempFilePath, function(error, result)
+      {
+        return result
+      
+      })
+      
+  } 
 
 router.post('/image', async (req,res) => {
-  try {
-    const fileStr = req.body.data
-    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      resource_type: "image",
-      use_filename: true, 
-    }, function(error, result){console.log(result, error)})
-    console.log(uploadResponse)
-    res.status(201).json({
-      message: "SUCCESS"
-    })
-  
-  } catch (err) {
-    console.error(err)
-    res.status(500).json({
-      err: 'Something went wrong'
-    })
+  if(!req.files || !req.files.image) {
+    console.log("No image selected")
+    const image = {
+      url:
+      "https://res.cloudinary.com/mikezs/image/upload/v1610650199/baseImageCT_ugi1th.jpg"
+    }
+
+    Chores.uploadingImg(image)
+      .then(id => res.status(201).json(id[0]))
+      .catch(err => res.status(400).json({
+        message: "error uploading"
+      }))
+
+  } else {
+    addImage(req.files)
+      .then(image => {
+        Chores.uploadingImg(image)
+          .then(id => res.status(201).json(id[0]))
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "error adding image"
+        })
+      })
   }
 
 })

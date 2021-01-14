@@ -25,10 +25,13 @@ server.use('/api/auth/child', childRouter);
 server.use('/api/auth/',  authRouter);
 server.use('/api/chore', choresRouter);
 
+
+
 // server check
 
 server.get('/', (req, res) => {
   res.status(200).json({  api: "If you see me, I am here..."});
 });
+
 
 module.exports = server 
