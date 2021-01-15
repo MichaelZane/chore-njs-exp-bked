@@ -52,7 +52,7 @@ return db('chore as c')
 function addImage(image) {
   return db("images")
     .insert(image)
-    .returning(['image', 'id'])
+    .returning(['img_url', 'id'])
 
 }
 
