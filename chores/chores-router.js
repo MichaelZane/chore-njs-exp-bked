@@ -22,7 +22,7 @@ router.post('/image', async (req,res) => {
 
     })
     console.log(uploadResponse.url); 
-    const image = uploadResponse.url
+    const image = JSON.stringify(uploadResponse.url)
 
     Chores.addImage(image)
     .then(res => {
