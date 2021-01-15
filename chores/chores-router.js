@@ -27,11 +27,11 @@ router.post('/image', async (req,res) => {
 } 
   const image = req.body.data
 
-  Chores.addImage(image)
-    .then(res => {
-      console.log(res.image)
-    })
-    .catch(err => console.error(err))
+  // Chores.addImage(image)
+  //   .then(res => {
+  //     console.log(res.image)
+  //   })
+  //   .catch(err => console.error(err))
 })
 
 // get a chore by id in database
