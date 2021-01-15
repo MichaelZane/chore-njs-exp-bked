@@ -24,7 +24,10 @@ router.post('/image', async (req,res) => {
 
         }
       ]
-    });
+    }, function(error, result){
+      console.log(error)
+      return result.url
+    })
     console.log(uploadResponse);
 
 } catch (err) {
