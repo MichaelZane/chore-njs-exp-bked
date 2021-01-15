@@ -22,18 +22,21 @@ router.post('/image', async (req,res) => {
 
     })
     console.log(uploadResponse.url); 
-    res.status(201).json({message: 'SUCCESS!!'})
+    const image = uploadResponse.url
+
+    Chores.addImage(image)
+    .then(res => {
+      console.log(res.image)
+    })
+    .catch(err => console.error(err))
+
 } catch (err) {
     console.error(err);
     res.status(500).json({ err: 'Something went wrong' });
 } 
   
 
-  // Chores.addImage(image)
-  //   .then(res => {
-  //     console.log(res.image)
-  //   })
-  //   .catch(err => console.error(err))
+  
 })
 
 // get a chore by id in database
