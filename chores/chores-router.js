@@ -19,9 +19,9 @@ router.post('/image', async (req,res) => {
     },       
       function(error, result){
       console.log(error, result)
-      return result
+
     })
-    console.log(uploadResponse);
+    console.log(uploadResponse); 
     res.status(201).json({message: 'SUCCESS!!'})
 } catch (err) {
     console.error(err);
