@@ -34,7 +34,7 @@ router.post('/image', async (req,res) => {
     console.error(err);
     res.status(500).json({ err: 'Something went wrong' });
 } 
-  const image = req.body.data
+  const image = req.body.data.url
   Chores.addImage(image)
     .then(res => {
       console.log(res.image)
