@@ -12,7 +12,7 @@ const authenticate = require('../auth/authenticateMW');
 router.post('/image', async (req,res) => {
   try {
     const fileStr = req.body.data;
-    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, options = {
         
       use_filename: true,
       unique_filename: true,
