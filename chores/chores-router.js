@@ -12,7 +12,7 @@ const authenticate = require('../auth/authenticateMW');
 router.post('/image', async (req,res) => {
   try {
     const fileStr = req.body.data;
-    const uploadResponse = await cloudinary.uploader.upload(fileStr, options = {
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
         
       use_filename: true,
       unique_filename: true,
@@ -21,11 +21,10 @@ router.post('/image', async (req,res) => {
         {
           width: 150,
           height: 150,
-
         }
       ]
     }, function(error, result){
-      console.log(error)
+      console.log(error, result)
       return result
     })
     console.log(uploadResponse);
@@ -34,7 +33,8 @@ router.post('/image', async (req,res) => {
     console.error(err);
     res.status(500).json({ err: 'Something went wrong' });
 } 
-  const image = req.body.data.url
+  const image = req.body.data
+  console.log(req.body.data)
   Chores.addImage(image)
     .then(res => {
       console.log(res.image)
