@@ -26,7 +26,7 @@ router.post('/image', async (req,res) => {
       ]
     }, function(error, result){
       console.log(error)
-      return result.url
+      return result
     })
     console.log(uploadResponse);
 
