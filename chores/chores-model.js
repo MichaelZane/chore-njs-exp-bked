@@ -51,8 +51,9 @@ return db('chore as c')
 
 function addImage(image) {
   return db("images")
+    .returning(['img_url', 'id'])
     .insert({img_url: image}, "id")
-    // .returning(['img_url', 'id'])
+    
 
 }
 
