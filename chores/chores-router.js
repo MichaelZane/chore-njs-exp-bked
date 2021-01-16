@@ -11,8 +11,12 @@ const authenticate = require('../auth/authenticateMW');
 
 router.post('/image', async (req,res) => {
   try {
-    const fileStr = req.body.data;
-    
+
+    if(req.chore_score >= 25) {
+      return res.json("max chore score of 25")
+    } else {
+
+    const fileStr = req.body.data;    
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
       use_filename: true,
       unique_filename: false
@@ -27,16 +31,22 @@ router.post('/image', async (req,res) => {
     Chores.addImage(image)
     .then(res => {
       console.log(res.image)
+      
     })
     .catch(err => console.error(err))
-
-} catch (err) {
+  }
+  }catch (err) {
     console.error(err);
     res.status(500).json({ err: 'Something went wrong' });
-} 
-  
+  } 
+ 
+})
 
-  
+// get the image 
+
+router.get('/img-url', async ( req, res ) => {
+  const { resources } = await cloudinary.search
+    
 })
 
 // get a chore by id in database
