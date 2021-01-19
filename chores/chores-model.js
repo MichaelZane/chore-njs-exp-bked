@@ -21,8 +21,8 @@ async function get(id) {
 //adding a chore 
 async function insert(chores) {
   return await db('chore')
-    .returning(['id', 'child_id', 'name', 'description', 'comments', 'completed', 'due_date', 'chore_score', 'bonus_pts', 'clean_strk', 'img_id'])
-    .insert(chores);
+    .returning('id', 'child_id', 'name', 'description', 'comments', 'completed', 'due_date', 'chore_score', 'bonus_pts', 'clean_strk', 'img_id')
+    .insert(chores, "id");
 }
 
 function findById(id) {
