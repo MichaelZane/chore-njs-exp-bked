@@ -69,20 +69,19 @@ router.put('/:id', authenticate, (req, res) => {
 router.delete('/:id', authenticate, (req, res) => {
   const { id } = req.params;
 
-
   Child.remove(id)
-  .then(deleted => {
+    .then(deleted => {
 
       if (deleted) {
           res.status(200).json(deleted);
-    } else {
-      res.status(404).json({ message: 'This child does not exist' })
-    }
-  })
-  .catch (err => {
-      console.log(err)
-      res.status(500).json({message: 'Failed to delete child from database'})
-  })
+      } else {
+        res.status(404).json({ message: 'This child does not exist' })
+      }
+    })
+    .catch (err => {
+        console.log(err)
+        res.status(500).json({message: 'Failed to delete child from database'})
+    })
 })
 
 

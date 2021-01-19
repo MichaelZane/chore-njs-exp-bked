@@ -22,7 +22,7 @@ exports.up = function(knex) {
 					.unsigned()
 					.references("id")
 					.inTable("parent")
-					.onDelete("RESTRICT")
+					.onDelete("CASCADE")
 					.onUpdate("CASCADE");
 
 			})
