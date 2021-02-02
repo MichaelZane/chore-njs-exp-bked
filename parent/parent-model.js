@@ -15,8 +15,8 @@ module.exports = {
 
 // get parent by id 
 
-async function get(id) {
-  return await db('parent as p')
+function get(id) {
+  return db('parent as p')
     .select("p.id", "p.fname", "p.lname", "p.email", "p.username")
     .where({ id })
     .first();
@@ -32,8 +32,8 @@ function findBy(filter) {
 
 //add a parent
 
-async function insert(user) {
-  return await db('parent')
+function insert(user) {
+  return db('parent')
     .returning(['id', 'fname', 'lname', 'username', 'password', 'email'])
     .insert(user);
 }

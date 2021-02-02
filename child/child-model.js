@@ -12,8 +12,8 @@ module.exports = {
   remove
 };
 // returns all child details
-async function get(id) {
-  return await db('child as c')
+function get(id) {
+  return db('child as c')
     .select("c.id", "c.parent_id","c.fstname", "c.lstname", "c.username")
     .where({ id })
     .first();
@@ -28,8 +28,8 @@ function findBy(filter) {
 }
 
 // adding a child
-async function insert(user) {
-  return await db('child')
+function insert(user) {
+  return db('child')
   .returning(['id', 'fstname', 'lstname', 'username', 'password', 'parent_id'])
   .insert(user);
 }
