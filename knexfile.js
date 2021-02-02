@@ -4,12 +4,12 @@ require("dotenv").config()
 module.exports = {
   development: {
     client: "pg",
-  //   connection: {
-  //     host: process.env.HOST,
-  //     database: process.env.DATABASE,
-  //     user: process.env.USER,
-  //     password: process.env.PASSWORD
-  //   },
+    connection: {
+      host: process.env.HOST,
+      database: process.env.DATABASE,
+      user: process.env.USER,
+      password: process.env.PASSWORD
+    },
     connection: 'postgres://localhost/postgres',
     migrations: {
       directory: "./database/migrations"
@@ -17,11 +17,11 @@ module.exports = {
     seeds: {
       directory: "./database/seeds"
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done)
-      }
-    }
+    // pool: {
+    //   afterCreate: (conn, done) => {
+    //     conn.run("PRAGMA foreign_keys = ON", done)
+    //   }
+    // }
   },
   production: {
     client: "pg",
@@ -33,17 +33,21 @@ module.exports = {
       directory: "./database/seeds"
     }
   },
-  testing: {
+  test: {
     client: "pg",
     connection: {
-      filename: "./data/test.db3"
+      host: process.env.HOST,
+      database: process.env.DATABASE_TEST,
+      user: process.env.USER,
+      password: process.env.PASSWORD
     },
-    useNullAsDefault: true,
+    connection: 'postgres://localhost/testDb',
     migrations: {
-      directory: "./data/migrations"
+      directory: "./database/migrations",
+      // tableName: "knex_migrations"
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: "./database/seeds"
     }
   }
 };

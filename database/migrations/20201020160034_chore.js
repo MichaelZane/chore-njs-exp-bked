@@ -34,7 +34,7 @@ exports.up = function(knex) {
             tbl
                 .integer("child_id")
                 .unsigned()
-                .references("child.child_id")
+                .references("id")
                 .inTable("child")
                 .onDelete("CASCADE")
                 .onUpdate("CASCADE");
@@ -42,7 +42,7 @@ exports.up = function(knex) {
             tbl     
                 .integer("img_id")
                 .unsigned()
-                .references("images.img_id")
+                .references("id")
                 .inTable("images")
                 .onDelete("CASCADE")
                 .onUpdate("CASCADE");

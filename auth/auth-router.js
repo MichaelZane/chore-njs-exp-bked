@@ -62,7 +62,6 @@ router.post('/login', (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        console.log(user.password)
         const token = makeToken(user)
         const user_id = user.id;
         const username = user.username;
@@ -84,17 +83,18 @@ router.post('/login', (req, res) => {
 // login for the child
 
 router.post('/login/child', (req, res) => {
-  let { username, password, id } = req.body;
+  let { username, password } = req.body;
 
   Child.findBy({ username })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = makeToken(user)
-
+        const user_id = user.id;
+        const username = user.username;
         res.status(200).json({
           message: `Hello, ${username} you have just logged in`,
-          token, parent_id 
+          token, user_id 
         });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });

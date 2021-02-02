@@ -20,9 +20,9 @@ exports.up = function(knex) {
 					tbl
 					.integer("parent_id")
 					.unsigned()
-					.references("parent.parent_id")
+					.references("id")
 					.inTable("parent")
-					.onDelete("RESTRICT")
+					.onDelete("CASCADE")
 					.onUpdate("CASCADE");
 
 			})

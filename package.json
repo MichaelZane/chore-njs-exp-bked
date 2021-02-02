@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env DB_ENV=testing jest --watch",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose --runInBand",
     "server": "nodemon index.js",
     "start": "node index.js",
     "client-install": "npm install --prefix client",
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/BuildWeekHomeChoreTracker/Backend/issues"
   },
-  "homepage": "https://github.com/BuildWeekHomeChoreTracker/Backend#readme",
+  "homepage": "hhttps://github.com/mzstevens69/chore-njs-exp-bked",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

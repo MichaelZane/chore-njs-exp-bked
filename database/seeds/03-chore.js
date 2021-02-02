@@ -13,7 +13,7 @@ exports.seed = function(knex) {
           chore_score: 5,
           bonus_pts: null,
           clean_strk: null,
-          photo_obj: null,
+          img_id: null,
           child_id: 1,
 
         
@@ -27,7 +27,7 @@ exports.seed = function(knex) {
           chore_score: 5,
           bonus_pts: null,
           clean_strk: null,
-          photo_obj: null,
+          img_id: null,
           child_id: 2,
 
          
@@ -41,7 +41,7 @@ exports.seed = function(knex) {
           chore_score: 5,
           bonus_pts: null,
           clean_strk: null,
-          photo_obj: null,
+          img_id: null,
           child_id: 3,
 
          
@@ -55,7 +55,7 @@ exports.seed = function(knex) {
           chore_score: 5,
           bonus_pts: null,
           clean_strk: null,
-          photo_obj: null,
+          img_id: null,
           child_id: 4,
 
          

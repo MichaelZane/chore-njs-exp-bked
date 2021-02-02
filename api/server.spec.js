@@ -1,6 +1,8 @@
 const server = require("./server")
 const request = require('supertest')
-const router = require('../auth/auth-router')
+// const db = require('../database/dbConfig')
+
+
 
 
 describe('the environment', function() {
@@ -17,20 +19,18 @@ describe('server', function() {
 
 describe('GET /', function() {
     it('it should return 200', function() {
-        // make a get request to 
-        //when testing an api ALWAYS return the request to the server
+
         return request(server).get('/')
         .then(res => {
-            // check that the status code is 200
+
             expect(res.status).toBe(200)
         })
     })
     it('it should JSON', function() {
-        // make a get request to 
-        //when testing an api ALWAYS return the request to the server
+
         return request(server).get('/')
         .then(res => {
-            // check that the status code is 200
+
             expect(res.type).toMatch(/json/i)
         })
 
@@ -38,72 +38,80 @@ describe('GET /', function() {
 })
 // register and log in parent
 
+let testReg = {
+    fname: "testFname",
+    lname: "testLname",
+    email: "testEmail@test.com",
+    username: "testUsername",
+    password: "testPassword",
+}
+
 describe('POST /api/auth/register', () => {
-    let parent = {
-        fname: "test0",
-        lname: "test0",
-        email: "0test@test0.com",
-        username: "test00",
-        password: "test000",
-    }
-    it('testing already exists parent', () => {
-        return request(server).post('/api/auth/register').send(parent)
-            .then(res => {            
-            expect(res.status).toBe(500)
-           
-            })
-            
+    
+    it('testing already exists parent', async() => {
+        const res = await request(server)
+            .post('/api/auth/register')
+            .send(testReg)
+                       
+        expect(res.status).toBe(500)
+                   
     })
 })
 
+let testLogin = { 
+    username: "testUsername",
+    password: "testPassword",
+}
+
 describe('POST /api/auth/login', () => {
-    let parent = { 
-        username: "test00", 
-        password: "test000"
-    }
-    it('test parent login', () => {
-        return request(server).post('/api/auth/login').send(parent)
-            .then(res => {
-                
-                expect(res.status).toBe(200)
-            
-            })
+    
+    it('test parent login', async() => {
+        const res = await request(server)
+            .post('/api/auth/login')
+            .send(testLogin)
+
+        expect(res.status).toBe(200)
                         
     })
 })
 
 // register and log in child
+let testChild = {
+    fstname: "fstnameTest",
+    lstname: "lstnameTest", 
+    username: "usernameTest",
+    password: "passwordTest",
+    
+}
 
 describe('POST /api/auth/register/child', () => {
-    let parent = {
-        fstname: "test0",
-        lstname: "test0",
-        username: "test00",
-        password: "test000",
-    }
-    it('testing already exists child', () => {
-        return request(server).post('/api/auth/register/child').send(parent)
-            .then(res => {            
-            expect(res.status).toBe(500)
+    
+    it('testing already exists child', async() => {
+        const res = await request(server)
+            .post('/api/auth/register/child')
+            .send(testChild) 
+
+        expect(res.status).toBe(500)
            
-            })
+
             
     })
 })
 
 describe('POST /api/auth/login/child', () => {
-    let parent = { 
-        username: "test00", 
-        password: "test000"
+    let testChildLogin = { 
+        username: "usernameTest",
+        password: "passwordTest"
     }
-    it('test child login', () => {
-        return request(server).post('/api/auth/login/child').send(parent)
-            .then(res => {
-                const token = res.body.token
-                expect(res.body.token).toBe(token)
-                expect(res.status).toBe(200)
-            
-            })                        
+    it('test child login', async() => {
+        const res = await request(server)
+            .post('/api/auth/login/child')
+            .send(testChildLogin)
+
+        const token = res.body.token
+        expect(res.body.token).toBe(token)
+        expect(res.status).toBe(200)
+                                 
     })
 
 })
