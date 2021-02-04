@@ -11,6 +11,10 @@ module.exports = {
       password: process.env.PASSWORD
     },
     connection: 'postgres://localhost/postgres',
+    pool: {
+      min: 0,
+      max: 100
+    },
     migrations: {
       directory: "./database/migrations"
     },
@@ -35,13 +39,11 @@ module.exports = {
   },
   test: {
     client: "pg",
-    connection: {
-      host: process.env.HOST,
-      database: process.env.DATABASE_TEST,
-      user: process.env.USER,
-      password: process.env.PASSWORD
+    connection: process.env.DATABASE_TEST,
+    pool: {
+      min: 0,
+      max: 10
     },
-    connection: 'postgres://localhost/testDb',
     migrations: {
       directory: "./database/migrations",
       // tableName: "knex_migrations"
