@@ -105,20 +105,19 @@ router.put('/:id', authenticate, (req, res) => {
 
 router.delete('/delete/:id', authenticate, (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   Chores.remove(id)
   .then(deleted => {
-      console.log(deleted)
+      
       if (deleted) {
           res.status(200).json(deleted);
     } else {
-      res.status(404).json({ message: 'This person does not exist' })
+      res.status(404).json({ message: 'This chore does not exist' })
     }
   })
   .catch (err => {
       console.log(err)
-      res.status(500).json({message: 'Failed to delete person from database'})
+      res.status(500).json({message: 'Failed to delete chore from database'})
   })
 })
   
