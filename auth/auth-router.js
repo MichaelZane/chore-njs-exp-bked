@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json(saved)
   } catch (err) {
     res.status(500).json(err.message)
+    console.log(err.message)
   }
 })
 
@@ -50,6 +51,7 @@ router.post('/register/child', async (req, res) => {
 
   } catch (err) {
     res.status(500).json(err.message)
+    console.log(err.message)
   }
 })
 
@@ -77,6 +79,7 @@ router.post('/login', (req, res) => {
     .catch(error => {
       console.log(error)
       res.status(500).json(error);
+      console.log(error.message)
     });
 });
 
