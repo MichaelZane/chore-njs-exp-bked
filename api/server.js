@@ -1,7 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-const bodyParser = require('body-parser')
 
 const childRouter = require('../child/child-router');
 const parentRouter = require('../parent/parent-router');
@@ -12,8 +11,8 @@ const choresRouter = require('../chores/chores-router');
 const server = express();
 server.use(express.static('public'));
 server.use(express.json({ limit: '50mb' }));
-server.use(express.urlencoded({ limit: '50mb', extended: true }));
-server.use(bodyParser.json())
+server.use(express.urlencoded());
+
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
