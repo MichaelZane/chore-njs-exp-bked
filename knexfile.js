@@ -35,6 +35,10 @@ module.exports = {
         rejectUnauthorized: false
       }
     },
+    pool: {
+      min: 0,
+      max: 10
+    },
     migrations: {
       directory: "./database/migrations"
     },
