@@ -7,11 +7,11 @@
 //     })
 // })
 
-// describe('server', function() {
-//     it('runs the test', function() {
-//         expect(true).toBe(true)
-//     })
-// })
+describe('server', function() {
+    it('runs the test', function() {
+        expect(true).toBe(true)
+    })
+})
 
 
 
