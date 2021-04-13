@@ -1,5 +1,7 @@
-// const server = require("./server")
-// const request = require('supertest')
+const server = require("./server")
+const request = require('supertest')
+
+
 
 // describe('the environment', function() {
 //     it('should use the testing environment', function() {
