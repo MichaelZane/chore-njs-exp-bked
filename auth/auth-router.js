@@ -25,8 +25,8 @@ router.post('/register', async (req, res) => {
     
     res.status(201).json(saved)
   } catch (err) {
-    res.status(500).json(err.res.data)
-    console.log(err.res.data)
+    res.status(500).json(err.res)
+    console.log(err.res)
   }
 })
 
