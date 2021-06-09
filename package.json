@@ -59,5 +59,8 @@
     "nodemon": "^2.0.2",
     "reinstall-node-modules": "^2.0.0",
     "supertest": "^4.0.2"
-  }
+  },
+  "resolutions": {
+    "hosted-git-info": ">=3.0.8"  
+}
 }
