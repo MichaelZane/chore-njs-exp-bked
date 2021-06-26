@@ -1,6 +1,21 @@
 require("dotenv").config()
 
 module.exports = {
+  production: {
+    client: "pg",
+    connection: process.env.DATABASE_URL,
+ 
+    pool: {
+      min: 0,
+      max: 15
+    },
+    migrations: {
+      directory: "./database/migrations"
+    },
+    seeds: {
+      directory: "./database/seeds"
+    }
+  },
   development: {
     client: "pg",
     connection: {
@@ -21,24 +36,7 @@ module.exports = {
       directory: "./database/seeds"
     },
   },
-  production: {
-    client: "pg",
-    connection: {
-      database : process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false }
-    },    
-      
-    pool: {
-      min: 0,
-      max: 10
-    },
-    migrations: {
-      directory: "./database/migrations"
-    },
-    seeds: {
-      directory: "./database/seeds"
-    }
-  },
+  
   test: {
     client: "pg",
     connection: process.env.DATABASE_TEST,
