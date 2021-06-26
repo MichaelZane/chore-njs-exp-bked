@@ -21,7 +21,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "hhttps://github.com/MichaeZane/chore-njs-exp-bked",
+  "homepage": "https://github.com/MichaeZane/chore-njs-exp-bked",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
