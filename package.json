@@ -24,9 +24,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MichaelZane/chore-njs-exp-bked/issues"
-  },
   "homepage": "hhttps://github.com/MichaeZane/chore-njs-exp-bked",
   "dependencies": {
     "bcryptjs": "^2.4.3",
