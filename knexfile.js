@@ -1,9 +1,12 @@
 require("dotenv").config()
-
+const pgConnection = process.env.DATABASE_URL
 module.exports = {
   production: {
     client: "pg",
-    connection: process.env.DATABASE_URL,
+    connection: {
+      connectionString: pgConnection,
+      ssl: { rejectUnauthorized: false }
+    },
  
     pool: {
       min: 0,
@@ -19,12 +22,12 @@ module.exports = {
   development: {
     client: "pg",
     connection: {
-      // host: process.env.HOST,
-      // database: process.env.DATABASE,
-      // user: process.env.USER,
-      // password: process.env.PASSWORD
+      host: process.env.HOST,
+      database: process.env.DATABASE,
+      user: process.env.USER,
+      password: process.env.PASSWORD
     },
-//    connection: 'postgres://localhost/postgres',
+    connection: 'postgres://localhost/postgres',
     pool: {
       min: 0,
       max: 100
@@ -46,7 +49,7 @@ module.exports = {
     },
     migrations: {
       directory: "./database/migrations",
-
+      // tableName: "knex_migrations"
     },
     seeds: {
       directory: "./database/seeds"
