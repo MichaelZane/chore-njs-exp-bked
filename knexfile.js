@@ -1,8 +1,9 @@
 require("dotenv").config()
-console.log(process.env.DATABASE_URL)
+
 module.exports = {
   production: {
     client: "pg",
+    useNullAsDefault: true,
     connection: process.env.DATABASE_URL,
  
     pool: {
@@ -46,7 +47,7 @@ module.exports = {
     },
     migrations: {
       directory: "./database/migrations",
-      // tableName: "knex_migrations"
+
     },
     seeds: {
       directory: "./database/seeds"
