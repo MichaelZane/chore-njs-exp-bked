@@ -3,7 +3,6 @@ require("dotenv").config()
 module.exports = {
   production: {
     client: "pg",
-    useNullAsDefault: true,
     connection: process.env.DATABASE_URL,
  
     pool: {
@@ -25,7 +24,7 @@ module.exports = {
       user: process.env.USER,
       password: process.env.PASSWORD
     },
-    connection: 'postgres://localhost/postgres',
+//    connection: 'postgres://localhost/postgres',
     pool: {
       min: 0,
       max: 100
