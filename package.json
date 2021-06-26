@@ -58,6 +58,6 @@
     "supertest": "^4.0.2"
   },
   "resolutions": {
-    "hosted-git-info": ">=3.0.8"  
-}
+    "hosted-git-info": ">=3.0.8"
+  }
 }
