@@ -1,20 +1,21 @@
 require("dotenv").config()
-const pgConnection = process.env.DATABASE_URL + `?sslmode=require`
+const pgConnection = process.env.DATABASE_URL + "?sslmode=require"
+console.log(pgConnection)
 module.exports = {
   production: {
     client: "pg",
-    connection: {
-      connectionString: pgConnection,
-      ssl: { rejectUnauthorized: false }
-    },
- 
+    connection: pgConnection,
+     
     pool: {
       min: 0,
       max: 15
     },
+
     migrations: {
       directory: "./database/migrations"
+
     },
+
     seeds: {
       directory: "./database/seeds"
     }
@@ -27,7 +28,7 @@ module.exports = {
       user: process.env.USER,
       password: process.env.PASSWORD
     },
-    connection: 'postgres://localhost/postgres',
+    
     pool: {
       min: 0,
       max: 100
