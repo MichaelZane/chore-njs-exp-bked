@@ -1,7 +1,5 @@
 const router = require("express").Router();
 
-const { cloudinary } = require('../api/cloudinary')
-
 const Chores = require('./chores-model');
 
 const authenticate = require('../auth/authenticateMW');
@@ -9,44 +7,49 @@ const authenticate = require('../auth/authenticateMW');
 
 //upload image cloudinary
 
-router.post('/image', async (req,res) => {
-  try {
+// router.post('/image', async (req,res) => {
+//   try {
 
-    if(req.chore_score >= 25) {
-      return res.json("max chore score of 25")
-    } else {
+//     if(req.chore_score >= 25) {
+//       return res.json("max chore score of 25")
+//     } else {
 
-    const fileStr = req.body.data;    
-    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      use_filename: true,
-      unique_filename: false
-    },       
-      function(error, result){
-      console.log(error, result)
+//     const fileStr = req.body.data;    
+//     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+//       use_filename: true,
+//       unique_filename: false
+//     },       
+//       function(error, result){
+//       console.log(error, result)
 
-    })
-    console.log(uploadResponse.url); 
-    const image = JSON.stringify(uploadResponse.url)
+//     })
+//     console.log(uploadResponse.url); 
+//     const image = JSON.stringify(uploadResponse.url)
 
-    Chores.addImage(image)
-    .then(res => {
-      console.log(res.image)
+//     Chores.addImage(image)
+//     .then(res => {
+//       console.log(res.image)
       
-    })
-    .catch(err => console.error(err))
-  }
-  }catch (err) {
-    console.error(err);
-    res.status(500).json({ err: 'Something went wrong' });
-  } 
+//     })
+//     .catch(err => console.error(err))
+//   }
+//   }catch (err) {
+//     console.error(err);
+//     res.status(500).json({ err: 'Something went wrong' });
+//   } 
  
-})
+// })
 
 // get the image 
 
-router.get('/img-url', async ( req, res ) => {
-  const { resources } = await cloudinary.search
-    
+router.get('/chores/:id', authenticate, ( req, res ) => {
+  const { id } = req.params;
+  
+  Chores.getByChildId(child_id)
+    .then(chore => {
+      res.json(chore)
+    }) 
+    .catch(err => res.send(err))
 })
 
 // get a chore by id in database

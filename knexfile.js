@@ -1,10 +1,10 @@
 require("dotenv").config()
-const pgConnection = process.env.DATABASE_URL + "?sslmode=require"
-console.log(pgConnection)
+
 module.exports = {
   production: {
     client: "pg",
-    connection: pgConnection,
+    connection: process.env.DATABASE_URL,
+    ssl: true,
      
     pool: {
       min: 0,
