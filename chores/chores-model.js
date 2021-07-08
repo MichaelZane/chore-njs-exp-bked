@@ -3,12 +3,17 @@ const db = require("../database/dbConfig")
 
 module.exports = {
 get,
+getAll,
 insert,
 getChore,
 findById,
 update,
 remove,
 getByChildId
+}
+
+function getAll() {
+  return db("chore").select("*")
 }
 
 function getByChildId(child_id) {

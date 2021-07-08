@@ -1,10 +1,12 @@
 const express = require('express');
+const reatLimit = require('express-rate-limit')
 const helmet = require('helmet');
 const cors = require('cors');
 const childRouter = require('../child/child-router');
 const parentRouter = require('../parent/parent-router');
 const authRouter = require('../auth/auth-router');
 const choresRouter = require('../chores/chores-router');
+const rateLimit = require('express-rate-limit');
 
 
 const server = express();
@@ -13,8 +15,18 @@ server.use(express.json({ limit: '50mb' }));
 server.use(express.urlencoded({ limit: '50mb', extended: true }));
 server.use(express.json())
 server.use(helmet());
-
 server.use(cors({ origin: true }));
+
+// Create rate limit rule
+
+const apiRequestLimiter = rateLimit({
+  windowMs: 1 * 10 * 1000, // 1 minute
+  max: 2 // limit each IP to 2 per windowms
+})
+
+//use the the limit rule as app middleware
+
+server.use(apiRequestLimiter)
 
 // routes
 
@@ -22,8 +34,6 @@ server.use('/api/auth/parent', parentRouter);
 server.use('/api/auth/child', childRouter);
 server.use('/api/auth/',  authRouter);
 server.use('/api/chore', choresRouter);
-
-
 
 //  server check
 

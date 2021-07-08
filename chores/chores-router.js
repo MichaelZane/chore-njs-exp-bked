@@ -40,7 +40,15 @@ const authenticate = require('../auth/authenticateMW');
  
 // })
 
-// get the image 
+// get all chores
+
+router.get('/', authenticate, (req, res) => {
+  Chores.getAll()
+  .then(chore => {
+    res.json(chore)
+  })
+  .catch(err => res.send(err))
+})
 
 router.get('/chores/:id', authenticate, ( req, res ) => {
   const { id } = req.params;

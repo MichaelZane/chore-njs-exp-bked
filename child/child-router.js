@@ -3,22 +3,27 @@ const router = require("express").Router();
 const Child = require("./child-model");
 
 const authenticate = require("../auth/authenticateMW");
+const { message } = require("statuses");
 
 router.get("/justchild/:id", authenticate, (req, res) => {
 
   const { id } = req.params;
 
   Child.get(id)
-    .then(chores => {
-      res.json(chores);
+    .then(childs => {
+      if(childs) {
+        res.json(childs);       
+      } else {
+        return res.status(404).json({
+          message: "child not found"
+        })
+      }     
     })
     .catch(err => res.send(err));
 });
-// get child by id and chores by child_id
-
-// return an array of chores by child id
 
 router.get('/:id', authenticate, (req, res) => {
+  
   const { id } = req.params;
 
   Child.findById(id)
@@ -26,11 +31,8 @@ router.get('/:id', authenticate, (req, res) => {
     if (child) {
       Child.getChoreById(id) // if child is found then get chore by id
         .then(chore => {
-          let addChore = []
-          if(chore.length) {
-            addChore = chore // if chore exists add it to array
-          }
-          res.json({ chore: addChore })
+         
+          res.json(chore)
         })
         .catch(err => {
           res.status(500).json({ message: 'Failed getting chore' });
@@ -47,6 +49,7 @@ router.get('/:id', authenticate, (req, res) => {
 
 router.put('/:id', authenticate, (req, res) => {
   const { id } = req.params;
+
   const changes = req.body;
 
   Child.findById(id)

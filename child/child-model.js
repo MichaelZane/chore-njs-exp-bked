@@ -14,7 +14,7 @@ module.exports = {
 // returns all child details
 function get(id) {
   return db('child as c')
-    .select("c.id", "c.parent_id","c.fstname", "c.lstname", "c.username")
+    .select("c.id", "c.parent_id","c.fstname", "c.lstname", "c.username", "c.password")
     .where({ id })
     .first();
 }
@@ -24,7 +24,8 @@ function find() {
 }
 // added for a filter
 function findBy(filter) {
-  return db('child').where(filter);
+  return db('chore')
+    .where(filter);
 }
 
 // adding a child
