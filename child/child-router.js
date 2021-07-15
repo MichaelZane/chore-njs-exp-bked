@@ -38,12 +38,12 @@ router.get('/:id', authenticate, (req, res) => {
           res.status(500).json({ message: 'Failed getting chore' });
         });
     } else {
-      res.status(404).json({ message: 'Could not get chore for child' })
+      res.status(404).json({ message: 'Could not find child' })
     }
   })
   .catch(err => {
     console.log(err)
-    res.status(500).json({ message: 'Failed to get chore' });
+    res.status(500).json({ message: 'Failed to get child' });
   });
 });
 
