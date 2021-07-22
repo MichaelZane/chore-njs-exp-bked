@@ -26,15 +26,11 @@ router.get('/:id', authenticate, (req, res) => {
   Parent.findById(id)
   .then(parent => {
     if (parent) {
-      Parent.getChildById(id) // if child is found then get child by id
-        .then(child => {
-          let addChild = []
-          if(child.length) {
-            addChild = child// if child exists add it to array
-
-            res.status(200).json({ child: addChild }) // return array of parents children
+      Parent.getChildById(id) 
+        .then(childs => {        
+            res.status(200).json(childs) 
           }
-        })
+        )
         .catch(err => {
           console.log(err)
           res.status(500).json({ message: 'Failed at finding any children for parent' });

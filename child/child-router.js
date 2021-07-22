@@ -9,10 +9,10 @@ router.get("/justchild/:id", authenticate, (req, res) => {
 
   const { id } = req.params;
 
-  Child.get(id)
+  Child.findById(id)
     .then(childs => {
       if(childs) {
-        res.json(childs);       
+        res.status(200).json(childs);       
       } else {
         return res.status(404).json({
           message: "child not found"
@@ -48,6 +48,7 @@ router.get('/:id', authenticate, (req, res) => {
 });
 
 router.put('/:id', authenticate, (req, res) => {
+  
   const { id } = req.params;
 
   const changes = req.body;
