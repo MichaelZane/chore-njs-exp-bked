@@ -27,8 +27,8 @@ router.get('/:id', authenticate, (req, res) => {
   .then(parent => {
     if (parent) {
       Parent.getChildById(id) 
-        .then(childs => {        
-            res.status(200).json(childs) 
+        .then(childs => {
+            res.status(200).json(childs)
           }
         )
         .catch(err => {
