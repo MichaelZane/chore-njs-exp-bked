@@ -9,69 +9,29 @@ getChore,
 findById,
 update,
 remove,
-getByChildId
+getChildrenChores
 }
 
 function getAll() {
   return db("chore").select("*")
 }
-async function getByChildId(child_id) {
+
+async function getChildrenChores(parent_id) {
   const rows = await db("child")
     .join("chore", "child.id", "chore.child_id")
-    .select("child.*", "chore.name")
-    .where("child.id", child_id);
-  const child = rows.length > 0 ? rows[0] : null;
-  const chores = rows.map((row) => ({ name: row.name, description: row.description, completed: row.completed }));
-  return { child, chores };
+    .select("child.*", "chore.*")
+    .where("child.parent_id", parent_id);
+  const children = rows.reduce((acc, row) => {
+    const child = acc.find((c) => c.id === row.child_id);
+    if (!child) {
+      acc.push({ id: row.child_id, fstname: row.fstname, lstname: row.lstname, username: row.username, parent_id: row.parent_id, chores: [{ name: row.name, id: row.id }] });
+    } else {
+      child.chores.push({ name: row.name, id: row.id, description: row.description, comments: row.comments, chore_score: row.chore_score, child_id: row.child_id });
+    }
+    return acc;
+  }, []);
+  return children;
 }
-
-// async function getAllChildrenWithChores(id) {
-//   const rows = await db("child")
-//     .join("chore", "child.id", "chore.child_id")
-//     .select("child.*", "chore.*");
-
-//   const children = rows.reduce((acc, row) => {
-//     const child = acc.find((c) => c.id === row.id);
-//     if (child) {
-//       child.chores.push({ name: row.name, description: row.description, completed: row.completed });
-//     } else {
-//       acc.push({
-//         ...row,
-//         chores: [{ name: row.name, description: row.description, completed: row.completed }],
-//       });
-//     }
-//     return acc;
-//   }, []);
-//   return children;
-// }
-
-// async function getAllChildrenWithChores(child_id) {
-//   const rows = await db("child")
-//     .join("chore", "child.id", "chore.child_id")
-//     .select("child.*", "chore.name")
-//     .where("child.id", child_id);
-
-//   const child = rows.length > 0 ? rows[0] : null;
-//   const choreProperties = ["name", "description", "completed"];
-//   const chores = rows.map((row) => 
-//       choreProperties.reduce((acc, prop) => {
-//           acc[prop] = row[prop];
-//           return acc;
-//       }, {})
-//   );
-//   return { child, chores };
-// } 
-
-
-// async function getByChildId(child_id) {
-//   const results = await db("child")
-//     .join("chore", "child.id", "chore.child_id")
-//     .where("child.id", child_id)
-//     .select("child.*", "chore.*");
-//   const child = results[0];
-//   const chores = results.map((result) => result.chore);
-//   return { child, chores };
-// }
 
 
 function get(id) {

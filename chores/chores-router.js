@@ -53,7 +53,7 @@ router.get('/', authenticate, (req, res) => {
 router.get('/chores/:id', authenticate, ( req, res ) => {
   const { id } = req.params;
 
-  Chores.getByChildId(id)
+  Chores.getChildrenChores(id)
     .then(chore => {
       res.json(chore)
     }) 
