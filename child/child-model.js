@@ -31,7 +31,7 @@ function findBy(filter) {
 // adding a child
 function insert(user) {
   return db('child')
-  .returning(['id', 'fstname', 'lstname', 'username', 'password', 'parent_id'])
+  .returning(['id', 'fstname', 'lstname', 'username', 'parent_id'])
   .insert(user);
 }
 

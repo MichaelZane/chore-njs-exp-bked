@@ -3,8 +3,11 @@ const router = require("express").Router();
 const Child = require("./child-model");
 
 const authenticate = require("../auth/authenticateMW");
+
 const { message } = require("statuses");
 
+
+//returns child by ID
 router.get("/justchild/:id", authenticate, (req, res) => {
 
   const { id } = req.params;
@@ -21,7 +24,7 @@ router.get("/justchild/:id", authenticate, (req, res) => {
     })
     .catch(err => res.send(err));
 });
-
+//return all chores by child ID
 router.get('/:id', authenticate, (req, res) => {
   
   const { id } = req.params;
@@ -46,7 +49,7 @@ router.get('/:id', authenticate, (req, res) => {
     res.status(500).json({ message: 'Failed to get child' });
   });
 });
-
+// update child by id
 router.put('/:id', authenticate, (req, res) => {
   
   const { id } = req.params;
