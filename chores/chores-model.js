@@ -25,7 +25,7 @@ async function getChildrenChores(parent_id) {
     //where child.parent_id is equal to the parent_id passed to the function
     .where("child.parent_id", parent_id);
   //reducing the rows to a single array of children
-  console.log(rows)
+
   const children = rows.reduce((acc, row) => {
     //checking if a child with the id of row.child_id is already in the acc array
     const child = acc.find((c) => c.id === row.child_id);

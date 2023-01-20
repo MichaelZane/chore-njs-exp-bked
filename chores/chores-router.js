@@ -118,8 +118,7 @@ router.delete('/delete/:id', authenticate, (req, res) => {
   const { id } = req.params;
 
   Chores.remove(id)
-  .then(deleted => {
-      
+  .then(deleted => {  
       if (deleted) {
           res.status(200).json(deleted);
     } else {
